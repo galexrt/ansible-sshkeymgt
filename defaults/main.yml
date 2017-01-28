@@ -1,0 +1,5 @@
+---
+# defaults file for ansible-sshkeymgt
+ssh_key_directory: "/etc/ssh/authorized_keys"
+
+ssh_keys: []
