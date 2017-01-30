@@ -1,2 +1,8 @@
 ---
-# tasks file for .
+- name: Create ssh authorized_keys directory
+  file:
+    path: "/etc/ssh/authorized_keys"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
