@@ -7,10 +7,11 @@
     mode: 0644
     path: "{{ ssh_key_directory }}"
 
-- name: Add ssh pub key for users
+- name: Add and remove ssh pub key for users
   authorized_key:
     user: "{{ item.user }}"
-    key: "{{ item.key|default(lookup('file', item.file)) }}"
+    key: "{{ item.key|default(lookup('file', item.file)|default('')) }}"
+    key_options: "{{ item.key_options|default('') }}"
     state: "{{ item.state|default('present') }}"
     path: "/etc/ssh/authorized_keys/{{ item.name }}"
     manage_dir: "no"
