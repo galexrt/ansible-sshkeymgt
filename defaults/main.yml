@@ -3,3 +3,7 @@
 ssh_key_directory: "/etc/ssh/authorized_keys"
 
 ssh_keys: []
+#  - user: atrost
+#    file: data/test
+#  - user: atrost
+#    key: ssh-rsa ...
