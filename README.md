@@ -1,6 +1,8 @@
 ansible-sshkeymgt
 =========
 
+[![Build Status](https://travis-ci.org/galexrt/ansible-sshkeymgt.svg?branch=master)](https://travis-ci.org/galexrt/ansible-sshkeymgt)
+
 A role to manage ssh keys for users.
 
 Requirements
@@ -32,7 +34,7 @@ No dependencies.
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+An example playbook on how to use this role:
 
 ```
 - hosts: servers
