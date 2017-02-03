@@ -4,7 +4,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0644
+    mode: 0655
     path: "{{ ssh_key_directory }}"
 
 - name: Add and remove ssh pub key for users
