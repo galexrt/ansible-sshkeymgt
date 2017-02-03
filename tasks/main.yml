@@ -10,19 +10,20 @@
 - name: Add and remove ssh pub key for users
   authorized_key:
     user: "{{ item.user }}"
-    key: "{{ item.key|default(lookup('file', item.file)|default('')) }}"
+    key: "{% if item.file is defined %}{{ lookup('file', item.file) }}{% else %}{{ item.key }}{% endif %}"
     key_options: "{{ item.key_options|default('') }}"
     state: "{{ item.state|default('present') }}"
-    path: "/etc/ssh/authorized_keys/{{ item.name }}"
+    path: "/etc/ssh/authorized_keys/{{ item.user }}"
     manage_dir: "no"
   with_items: "{{ ssh_keys }}"
-  when: item.file is defined or item.key is defined
+  when: item.key is defined or item.file is defined
 
 - name: Fix ssh pub key permissions
   file:
-    path: "/etc/ssh/authorized_keys/{{ item.name }}"
+    path: "/etc/ssh/authorized_keys/{{ item.user }}"
     state: file
     owner: root
     group: root
     mode: 0444
   with_items: "{{ ssh_keys }}"
+  when: item.state|default('present') != 'absent'
