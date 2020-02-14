@@ -4,7 +4,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0655
+    mode: 0755
     path: "{{ ssh_key_directory }}"
 
 - name: Add and remove ssh pub key for users
@@ -13,14 +13,14 @@
     key: "{% if item.file is defined %}{{ lookup('file', item.file) }}{% else %}{{ item.key }}{% endif %}"
     key_options: "{{ item.key_options|default('') }}"
     state: "{{ item.state|default('present') }}"
-    path: "/etc/ssh/authorized_keys/{{ item.user }}"
+    path: "{{ ssh_key_directory }}/{{ item.user }}"
     manage_dir: "no"
   with_items: "{{ ssh_keys }}"
   when: item.key is defined or item.file is defined
 
 - name: Fix ssh pub key permissions
   file:
-    path: "/etc/ssh/authorized_keys/{{ item.user }}"
+    path: "{{ ssh_key_directory }}/{{ item.user }}"
     state: file
     owner: root
     group: root
