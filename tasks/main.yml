@@ -17,8 +17,6 @@
     manage_dir: "no"
   with_items: "{{ ssh_keys }}"
   when: item.key is defined or item.file is defined
-  # Don't spam verbose log with this output
-  no_log: true
 
 - name: Fix ssh pub key permissions
   file:
