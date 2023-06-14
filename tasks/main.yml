@@ -8,7 +8,7 @@
     path: "{{ ssh_key_directory }}"
 
 - name: Add and remove ssh pub key for users
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ item.user }}"
     key: "{% if item.file is defined %}{{ lookup('file', item.file) }}{% else %}{{ item.key }}{% endif %}"
     key_options: "{{ item.key_options|default('') }}"
@@ -16,7 +16,7 @@
     path: "{{ ssh_key_directory }}/{{ item.user }}"
     manage_dir: "no"
   with_items: "{{ ssh_keys }}"
-  when: item.key is defined or item.file is defined
+  when: item.user is defined and (item.key is defined or item.file is defined)
 
 - name: Fix ssh pub key permissions
   file:
